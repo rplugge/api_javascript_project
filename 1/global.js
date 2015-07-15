@@ -6,18 +6,22 @@ req.addEventListener("load", function(){
   for (i=0; i < req.response.length; i++) {
     var tab = document.createElement("button")
     tab.setAttribute("class", "tab")
-    tab.classList.add(i)
     tab.setAttribute("id", "tab" + i)
+    tab.setAttribute("data-number", i)
     tab.innerHTML = req.response[i].general_info
     
     var container = document.getElementById("TabHeader")
-
+    container.appendChild(tab)
+    
     tab.addEventListener("click", function(){
-      var p1 = document.createElement("p")
-      p1.innerHTML = req.response[i].github_link
+      var content_div = document.getElementById("content")
+      var assignment = req.response[this.getAttribute("data-number")]
+      content_div.innerHTML = "Github Link - " + assignment.github_link + "<br />" +
+                              "Co-Workers - " + assignment.co_workers
+      
     })
     
-    container.appendChild(tab)
+    
   }
 })
 
